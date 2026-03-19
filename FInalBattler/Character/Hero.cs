@@ -62,15 +62,35 @@ namespace FinalBattler.Character
                     break;      
             }
         }
-        public void DisplayStats(bool showTotalStats = false)
-        {                                                      //maybe stats^ from calculatetotal
-           var statsToDisplay = showTotalStats ? GetTotalStats() : GetNaturalStats();
-        }
-        public void CalculateTotals()   //what does that mean? The idea is that 
+        //might have to put it up here to declare it
+        //string statsToDisplay = showTotalStats ? Hero.GetTotalStats() : Hero.GetNaturalStats();
+        public void DisplayStats(bool showTotalStats = false, string GetTotalStats, string GetNaturalStats)
+        {    //might have to change from string                    //maybe stats^ from calculatetotal
+           string statsToDisplay = showTotalStats ? Hero.GetTotalStats() : Hero.GetNaturalStats();
+        }                                      //maybe invent Player
+        public void CalculateTotals()//what does that mean? The idea is that 
         {                               //your character has certain stats
-                                        //and your equipment stats to that 
-                                        //if you want to make some adjustments
-                                        //to that your probably fine                
+            //GetNatural                //and your equipment stats to that 
+            //GetTotal                  //if you want to make some adjustments
+                                        //to that your probably fine               
         }
-    }
-}
+
+        public string GetTotalStats(Enum Equipment)
+        {
+            return "you're weak but kinda stacked tho";
+            /* //implementation idea
+            if (has Equipment = true) add 30
+            Slot; ???????
+            StatBoostType; add boost value
+            BoostValue; add that much
+             */
+        }                            
+                                      
+        public string GetNaturalStats(Enum Equipment)
+        {
+            return "You're Strong!";
+            //more code
+        }         
+    } // end of public class Hero                                   
+}//whole end in namespace
+
