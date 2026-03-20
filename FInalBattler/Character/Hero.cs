@@ -64,9 +64,9 @@ namespace FinalBattler.Character
         }
         //might have to put it up here to declare it
         //string statsToDisplay = showTotalStats ? Hero.GetTotalStats() : Hero.GetNaturalStats();
-        public void DisplayStats(bool showTotalStats = false, string GetTotalStats, string GetNaturalStats)
+        public void DisplayStats(bool showTotalStats = false)
         {    //might have to change from string                    //maybe stats^ from calculatetotal
-           string statsToDisplay = showTotalStats ? Hero.GetTotalStats() : Hero.GetNaturalStats();
+           string statsToDisplay = showTotalStats ? GetTotalStats() : GetNaturalStats();
         }                                      //maybe invent Player
         public void CalculateTotals()//what does that mean? The idea is that 
         {                               //your character has certain stats
@@ -75,8 +75,9 @@ namespace FinalBattler.Character
                                         //to that your probably fine               
         }
 
-        public string GetTotalStats(Enum Equipment)
+        public string GetTotalStats() //just get experience navigating
         {
+            //go and actually make stats
             return "you're weak but kinda stacked tho";
             /* //implementation idea
             if (has Equipment = true) add 30
@@ -86,7 +87,7 @@ namespace FinalBattler.Character
              */
         }                            
                                       
-        public string GetNaturalStats(Enum Equipment)
+        public string GetNaturalStats()
         {
             return "You're Strong!";
             //more code
