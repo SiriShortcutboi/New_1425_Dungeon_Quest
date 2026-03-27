@@ -30,36 +30,32 @@ namespace FinalBattler.Character
         }
         public void LevelUp()
         {
-            Random randInt = new Random();
-            //action2 = int.Parse(Console.ReadLine());
-                        //need to make this an if statement to run a choice isntead of all 3
-            
-            switch(CombatClass)
-            {
-                case CombatClass.Warrior:                  
-                    Health = Health + randInt.Next(1,15); // health 1-15 
-                    Power = Power + randInt.Next(3, 5);
-                    Luck = Luck + randInt.Next(1,3);
-                    break;      
-                
-                case CombatClass.Wizard: //added wizard because creations.cs
-                             //starter code has it                  
-                    Health = Health + randInt.Next(10,20); // health 1-15 
-                    Power = Power + randInt.Next(1, 3);
-                    Luck = Luck + randInt.Next(1,3);
-                    break;      
+            switch (CombatClass)
+            {                          //I found a case of polymorphism in the wild 
+                case CombatClass.Mage:      // this style allows both cases to hit:                        
+                case CombatClass.Wizard:                       // the same results:
+                    Health += Random.Shared.Next(1, 16);// 1-15
+                    Power += Random.Shared.Next(3, 6);  // 3-5
+                    Luck += Random.Shared.Next(1, 4);   // 1-3
+                    break; //I learned that using Shared gives you better random 
+                    // results using 1 seed per game, and then changing things 
+                    // up next time the program/game runs. Might make it less funny
+                    //though
 
-                case CombatClass.Rogue:
-                     Health = Health + randInt.Next(1,15); // health 1-15 
-                    Power = Power + randInt.Next(1, 3);
-                    Luck = Luck + randInt.Next(3,5);
+                case CombatClass.Warrior:
+                    Health += Random.Shared.Next(10, 21);  // 10-20
+                    Power += Random.Shared.Next(1, 4);     // 1-3
+                    Luck += Random.Shared.Next(1, 4);      // 1-3
                     break;
 
-                case CombatClass.Mage://add values to stats player already has             
-                        //Health randInt.Next(1,15)
-                        //power 1-3
-                        //Luck 3-5
-                    break;      
+                case CombatClass.Rogue:
+                    Health += Random.Shared.Next(1, 16);   // 1-15
+                    Power += Random.Shared.Next(1, 4);     // 1-3
+                    Luck += Random.Shared.Next(3, 6);      // 3-5
+                    break;
+
+                default:
+                    break;
             }
         }
         //might have to put it up here to declare it
