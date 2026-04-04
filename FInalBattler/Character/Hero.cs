@@ -22,10 +22,18 @@ namespace FinalBattler.Character
         {
             //Implement Hero empty constructor:
             //New Heros start with:
-            // “Unknown” name, 
-            // level 0, 
-            // all stats SET TO 1
-
+            this.Name = "Unkown"; // “Unknown” name, 
+            this.Level = 1; 
+            // all stats SET TO 1 Health Power Luck mana ExperienceRemaining
+            this.Health = 1;
+            this.Power = 1;
+            this.Luck = 1;
+            this.Mana = 1;
+            this.ExperienceRemaining = 1;
+            this.Items = new List<Item>();
+            this.Skills = new List<Skill>();
+            this.Spells = new List<Spell>();
+            this.Equipment = new List<Equipment>();
 
         }
         public void LevelUp()
@@ -60,33 +68,64 @@ namespace FinalBattler.Character
         }
         //might have to put it up here to declare it
         //string statsToDisplay = showTotalStats ? Hero.GetTotalStats() : Hero.GetNaturalStats();
-        public void DisplayStats(bool showTotalStats = false)
+        public string DisplayStats(bool showTotalStats = false)
         {    //might have to change from string                    //maybe stats^ from calculatetotal
-           string statsToDisplay = showTotalStats ? GetTotalStats() : GetNaturalStats();
+            string statsToDisplay = showTotalStats ? GetTotalStats() : GetNaturalStats();
+            return statsToDisplay;
         }                                      //maybe invent Player
         public void CalculateTotals()//what does that mean? The idea is that 
         {                               //your character has certain stats
-            //GetNatural                //and your equipment stats to that 
-            //GetTotal                  //if you want to make some adjustments
-                                        //to that your probably fine               
+            var bonuses = GetEquipmentBonuses();
+            int totalHealth = Health + bonuses.healthBonus;
+            TotalPower = Power + bonuses.powerBonus;
+            TotalLuck = Luck + bonuses.luckBonus;
+            Totals = totalHealth + TotalPower + TotalLuck;
         }
-
-        public string GetTotalStats() //just get experience navigating
+                                        //just get experience navigating structures 
+        public string GetTotalStats() 
         {
-            //go and actually make stats
-            return "you're weak but kinda stacked tho";
-            /* //implementation idea
-            if (has Equipment = true) add 30
-            Slot; ???????
-            StatBoostType; add boost value
-            BoostValue; add that much
-             */
+            var bonuses = GetEquipmentBonuses();
+            int totalHealth = Health + bonuses.healthBonus;
+            int totalPower = Power + bonuses.powerBonus;
+            int totalLuck = Luck + bonuses.luckBonus;
+
+            TotalPower = totalPower;
+            TotalLuck = totalLuck;
+            Totals = totalHealth + totalPower + totalLuck;
+
+            return $"Total Stats -> Health: {totalHealth}, Power: {totalPower}, Luck: {totalLuck}, Mana: {Mana}, Equipped Items: {Equipment.Count}";
         }                            
                                       
         public string GetNaturalStats()
         {
-            return "You're Strong!";
-            //more code
+            return $"Natural Stats -> Health: {Health}, Power: {Power}, Luck: {Luck}, Mana: {Mana}";
+        }
+
+        private (int healthBonus, int powerBonus, int luckBonus) GetEquipmentBonuses()
+        {
+            int healthBonus = 0;
+            int powerBonus = 0;
+            int luckBonus = 0;
+
+            foreach (var equippedItem in Equipment)
+            {
+                switch (equippedItem.StatBoostType)
+                {
+                    case StatBoostType.Health:
+                        healthBonus += equippedItem.BoostValue;
+                        break;
+                    case StatBoostType.Power:
+                        powerBonus += equippedItem.BoostValue;
+                        break;
+                    case StatBoostType.Luck:
+                        luckBonus += equippedItem.BoostValue;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return (healthBonus, powerBonus, luckBonus);
         }         
     } // end of public class Hero                                   
 }//whole end in namespace
