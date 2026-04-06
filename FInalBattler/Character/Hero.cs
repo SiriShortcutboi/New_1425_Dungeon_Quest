@@ -5,7 +5,7 @@ namespace FinalBattler.Character
 { //do i expect you to use all the things available to you, no this
   // assignment is about organization -Mr jensen
   // if you want to make some adjustments to this your probably fine
-    public class Hero : Creations, IHero
+    public class Hero : Creations, IHero, IDamageCalculator
     {
         public int Health { get; set; }
         public int Power { get; set; }
@@ -99,6 +99,12 @@ namespace FinalBattler.Character
         public string GetNaturalStats()
         {
             return $"Natural Stats -> Health: {Health}, Power: {Power}, Luck: {Luck}, Mana: {Mana}";
+        }
+
+        public int CalculateDamage(int attackerPower)
+        {
+            // use attack power-led damage but also have a luck-based bonus.
+            return attackerPower + (Luck / 2);
         }
 
         private (int healthBonus, int powerBonus, int luckBonus) GetEquipmentBonuses()

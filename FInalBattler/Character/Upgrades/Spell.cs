@@ -1,6 +1,8 @@
-﻿namespace FinalBattler.Character.Upgrades
+﻿using FinalBattler.Interfaces;
+
+namespace FinalBattler.Character.Upgrades
 {
-    public class Spell
+    public class Spell :IDamageCalculator
     {
         public string SpellName { get; set; }
         public int ManaCost { get; set; }
@@ -13,9 +15,9 @@
             BaseDamage = baseDamage;
         }
 
-        public int CalculateSpellDamage(int heroPower)
+        public int CalculateDamage(int attackerPower)
         {
-            return BaseDamage + (heroPower / 2);
+            return BaseDamage + (attackerPower / 2);
         }
 
         public void CastSpell(Hero hero)
